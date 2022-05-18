@@ -1,0 +1,57 @@
+config:
+  environments:
+    healthcheck:
+      target: 'http://localhost:5555/app'
+      variables:
+        endpoint: '/'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-healthcheck"
+    proxy1:
+      target: 'http://localhost:5555/app'
+      variables:
+        endpoint: '/proxy1'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-proxy1"
+    proxy2:
+      target: 'http://localhost:5555/app'
+      variables:
+        endpoint: '/proxy2'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-proxy2"
+    heavy:
+      target: 'http://localhost:5555/app'
+      variables:
+        endpoint: '/heavy'
+      plugins:
+        statsd:
+          host: localhost
+          port: 8125
+          prefix: "artillery-heavy"
+
+
+  pool: 50 # All HTTP requests from all virtual users will be sent over the same connections
+
+  phases:
+    - name: Ramp
+      duration: 30
+      arrivalRate: 5
+      rampTo: 60
+    - name: Plain
+      duration: 120
+      arrivalRate: 60
+    
+
+scenarios:
+  - name: Root (/)
+    flow:
+      - get:
+          url: "{{ endpoint }}"

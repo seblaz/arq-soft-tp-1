@@ -4,6 +4,8 @@ services:
     app:
         build:
             context: app
+        ports:
+            - "3000:3000"
 
     svc1:
         image: arqsoft/bbox:202201.1
