@@ -4,8 +4,11 @@ services:
     app:
         build:
             context: app
-        ports:
-            - "3000:3000"
+        # ports:
+        #     - "3000:3000"
+        expose:
+            - 3000
+        scale: 6
 
     svc1:
         image: arqsoft/bbox:202201.1
@@ -22,7 +25,8 @@ services:
         ports:
             - "5555:80"
         volumes:
-            - ./nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro
+            # - ./nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro
+            - ./nginx_reverse_proxy_replicated.conf:/etc/nginx/conf.d/default.conf:ro
             - ./store/static/files:/static:ro
         links:
             - app
