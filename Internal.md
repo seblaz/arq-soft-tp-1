@@ -13,11 +13,11 @@ $ curl http://localhost:5555/app/
 ### Llamar al servicio 1
 
 ```shell
-$ curl http://localhost:5555/svc1/
+$ curl http://localhost:5555/app/proxy1
 ```
 
 ### Llamar al servicio 2
 
 ```shell
-$ curl http://localhost:5555/svc2/
+$ curl http://localhost:5555/app/proxy2
 ```
