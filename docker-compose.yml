@@ -10,23 +10,18 @@ services:
             - 3000
         scale: 6
 
-    svc1:
+    svc:
         image: arqsoft/bbox:202201.1
         volumes:
-            - "./svc1/config.properties:/opt/bbox/config.properties"
-
-    svc2:
-        image: arqsoft/bbox:202201.1
-        volumes:
-            - "./svc2/config.properties:/opt/bbox/config.properties"
+            - "./svc/config.properties:/opt/bbox/config.properties"
 
     nginx:
         image: nginx:1.21.6
         ports:
             - "5555:80"
         volumes:
-            # - ./nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro
-            - ./nginx_reverse_proxy_replicated.conf:/etc/nginx/conf.d/default.conf:ro
+            - ./nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro
+            # - ./nginx_reverse_proxy_replicated.conf:/etc/nginx/conf.d/default.conf:ro
             - ./store/static/files:/static:ro
         links:
             - app
