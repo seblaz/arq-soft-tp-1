@@ -43,7 +43,7 @@ config:
   phases:
     - name: Plain
       duration: 120 
-      arrivalRate: 10
+      arrivalRate: 5
     
 
 scenarios:
